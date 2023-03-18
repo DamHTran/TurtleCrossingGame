@@ -28,11 +28,12 @@ while game_is_on:
     # Detect collision with cars
     for car in car_manager.all_cars:
         if player.distance(car) < 20:
+            scoreboard.game_over()
             game_is_on = False
     # Detect collision with wall
-    if player.ycor() == 280:
-        player.goto((0, -280))
-        TIME_SLEEP *= 0.8
+    if player.is_at_finish_line():
+        player.go_to_start()
+        car_manager.level_up()
         scoreboard.increase_level()
         scoreboard.update_level()
 
